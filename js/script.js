@@ -2,8 +2,7 @@
 Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
-   
-// Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
+
 /*** 
  * IIFE to not clutter the Global Object
 ***/
@@ -58,6 +57,14 @@ FSJS project 2 - List Filter and Pagination
          if(elemAttributes.data){
             element.dataset.name = elemAttributes.data;
          }
+
+         if(elemAttributes.type){
+            element.type = elemAttributes.type;
+            if(elemAttributes.placeholder){
+               element.placeholder = elemAttributes.placeholder;
+            }
+         }
+
       }
       return element;
    }
@@ -103,7 +110,6 @@ FSJS project 2 - List Filter and Pagination
             data: "anchor"
          });
       }
-
       return a;
    }
 
@@ -130,33 +136,32 @@ FSJS project 2 - List Filter and Pagination
       divPagination.appendChild(ul);
       divPage.appendChild(divPagination);
    }
+   
+   /*** 
+    * add search bar to the DOM
+   ***/
+
+   function addSearchBar(){
+      const divHeader = document.querySelector(".page-header");
+      const divStudentSearch = createElem("DIV", {
+         elClass: "student-search"
+      });
+
+      const inputSearch = createElem("INPUT", {
+         type: "text",
+         placeholder: "Search for students..."
+      });
+
+      const buttonSearch = createElem("BUTTON", {
+         text: "Search"
+      });
+
+      divStudentSearch.appendChild(inputSearch);
+      divStudentSearch.appendChild(buttonSearch);
+      divHeader.appendChild(divStudentSearch);
+   }
 
    showPage(student_list, 1);
    appendPageLinks(student_list);
-  // pagination HTML to create dynamically 
-//   <div class="pagination">
-//     <ul>
-//       <li>
-//         <a class="active" href="#">1</a>
-//       </li>
-//        <li>
-//         <a href="#">2</a>
-//       </li>
-//        <li>
-//         <a href="#">3</a>
-//       </li>
-//        <li>
-//         <a href="#">4</a>
-//       </li>
-//        <li>
-//         <a href="#">5</a>
-//       </li>
-//     </ul>
-//   </div>
-  // end pagination 
-
-
-
-
-   // Remember to delete the comments that came with this file, and replace them with your own code comments.
+   addSearchBar();
 })();
