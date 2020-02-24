@@ -186,6 +186,7 @@ FSJS project 2 - List Filter and Pagination
          appendPageLinks(studentsFound);
          showPage(studentsFound, 1);
       }else if(userInput === ""){
+         removingHighlightSpan();
          removePaginationLinks();
          showPage(student_list, 1);
          appendPageLinks(student_list);
@@ -233,7 +234,12 @@ FSJS project 2 - List Filter and Pagination
     * Search for students that match the pattern and save them into an array
    ***/
    function findStudents(userQuery){
-      const regex = new RegExp(`^${userQuery}`);
+      const regex = new RegExp(`^.*${userQuery}.*$`, "gi");
+      const regexForSelection = new RegExp(`${userQuery.toLowerCase()}`);
+      let found = "";
+      let stringMatched = "";
+      let text = "";
+
       const studentsFound = [];
 
       for(let a = 0, len = student_list.length; a < len; a++){
@@ -243,12 +249,34 @@ FSJS project 2 - List Filter and Pagination
       for(let i = 0, len2 = listNames.length; i < len2; i++){
          if(regex.test(listNames[i].textContent)){
             let li = listNames[i].parentNode.parentNode;
-            li.style.display = ""; 
-            studentsFound.push(li);          
+            li.style.display = "";
+            studentsFound.push(li);
+            
+            /**
+             * Add span tag to highlight the text
+             */
+            text = listNames[i].textContent;
+            found = text.match(regexForSelection);
+            stringMatched = text.replace(found, `<span class="js-stringMatched stringMatched">${found}</span>`);
+            listNames[i].innerHTML = stringMatched;
          };
       }
 
       return studentsFound;
+   }
+   /***
+    * `removingHighlightSpan` function 
+    * Removes all the span tags added to the match that is found from the regex
+   ***/
+   function removingHighlightSpan(){
+      const spanTags = document.querySelectorAll(".js-stringMatched");
+      let text = "";
+      
+      for (let i = 0, len = spanTags.length; i < len; i++){
+         let h3 = spanTags[i].parentNode;
+         text = h3.textContent;
+         h3.innerHTML = text;
+      }
    }
 
    /***
