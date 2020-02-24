@@ -234,7 +234,7 @@ FSJS project 2 - List Filter and Pagination
     * Search for students that match the pattern and save them into an array
    ***/
    function findStudents(userQuery){
-      const regex = new RegExp(`^.*${userQuery}.*$`, "gi");
+      const regex = new RegExp(`^.*${userQuery}.*$`, "i");
       const regexForSelection = new RegExp(`${userQuery.toLowerCase()}`);
       let found = "";
       let stringMatched = "";
