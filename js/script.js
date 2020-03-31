@@ -257,7 +257,7 @@ FSJS project 2 - List Filter and Pagination
              */
             text = listNames[i].textContent;
             found = text.match(regexForSelection);
-            stringMatched = text.replace(found, `<span class="js-stringMatched stringMatched">${found}</span>`);
+            stringMatched = text.replace(found[0], `<span class="js-stringMatched stringMatched">${found[0]}</span>`);
             listNames[i].innerHTML = stringMatched;
          };
       }
